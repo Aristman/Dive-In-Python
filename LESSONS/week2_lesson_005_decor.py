@@ -4,8 +4,7 @@ def logger(func):
     @functools.wraps(func)
     def wrapped(*args, **kwargs):
         result = func(*args, **kwargs)
-        with open('log.txt', 'r+') as f:
-            f.readlines()
+        with open('log.txt', 'a', encoding='utf-8') as f:
             f.write(str(result))
             f.write('\n')
         return result
