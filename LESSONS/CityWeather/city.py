@@ -2,6 +2,7 @@ import pprint
 import requests
 from dateutil.parser import parse
 import yandex_weather_api
+import json
 
 
 class YandexWeatherForecast:
@@ -13,10 +14,11 @@ class YandexWeatherForecast:
         data = yandex_weather_api.get(requests, api_key=API_key, rate='informers', lat=lat, lon=lon)
         forecast_data = data['forecast']
         forecast = []
+        pprint.pprint(json.dumps(forecast_data, indent=4))
         for date_forecast in forecast_data:
             forecast.append({
-                'date': parse(date_forecast['date']),
-                'temp': date_forecast['temp_max']
+                'date': date_forecast['date'],
+                'temp': date_forecast['parts']['night']['temp_avg']
             })
         return forecast
 
