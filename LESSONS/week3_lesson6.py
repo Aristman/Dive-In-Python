@@ -5,10 +5,18 @@ except Exception:
 
 while True:
     try:
-        raw = input('Введите число: ')
-        number = int(raw)
+#        raw = input('Введите число: ')
+#        number = int(raw)
         continue
     except ValueError:
         print('Неверный ввод')
     finally:
         break
+
+class Pet:
+    pass
+
+class Cat(Pet):
+    pass
+
+print(isinstance(Cat(), Cat))
