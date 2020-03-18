@@ -3,7 +3,16 @@ import requests
 
 class WeatherToSite():
 
+    @property
+    def condition(self):
+        return self._condition
+
+    @property
+    def request(self):
+        return self._request
+
     def __init__(self):
+        self._request = None
         self._condition = {
             'clear': 'ясно',
             'partly-cloudy': 'малооблачно',
@@ -14,7 +23,7 @@ class WeatherToSite():
             'overcast-and-rain': 'сильный дождь',
             'overcast-thunderstorms-with-rain': 'сильный дождь, гроза',
             'cloudy-and-light-rain': 'небольшой дождь',
-            'overcast-and-light-rain': 'небольшой дождь',
+            'overcast-and-lproight-rain': 'небольшой дождь',
             'cloudy-and-rain': 'дождь',
             'overcast-and-wet-snow': 'дождь со снегом',
             'partly-cloudy-and-light-snow': 'небольшой снег',
@@ -44,4 +53,5 @@ class WeatherToSite():
             ('lon', lon),
             ('lang', lang)
         ]
-        return requests.get(url, params=params, headers=head).json()
+        self._request = requests.get(url, params=params, headers=head)
+        return self._request.json()
