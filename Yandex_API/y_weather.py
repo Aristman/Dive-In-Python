@@ -3,36 +3,34 @@ import requests
 
 class WeatherToSite():
 
-    @property
-    def condition(self):
-        return self._condition
+    _CONDITION = {
+        'clear': 'ясно',
+        'partly-cloudy': 'малооблачно',
+        'cloudy': 'облачно с прояснениями',
+        'overcast': 'пасмурно',
+        'partly-cloudy-and-light-rain': 'небольшой дождь',
+        'partly-cloudy-and-rain': "дождь",
+        'overcast-and-rain': 'сильный дождь',
+        'overcast-thunderstorms-with-rain': 'сильный дождь, гроза',
+        'cloudy-and-light-rain': 'небольшой дождь',
+        'overcast-and-light-rain': 'небольшой дождь',
+        'cloudy-and-rain': 'дождь',
+        'overcast-and-wet-snow': 'дождь со снегом',
+        'partly-cloudy-and-light-snow': 'небольшой снег',
+        'partly-cloudy-and-snow': 'снег',
+        'overcast-and-snow': 'снегопад',
+        'cloudy-and-light-snow': 'небольшой снег',
+        'overcast-and-light-snow': 'небольшой снег',
+        'cloudy-and-snow': 'снег'
+    }
 
-    @property
-    def request(self):
-        return self._request
+    def get_condition(self, name: str) -> str:
+        """Возвращает русское название погоды.
+
+        name - возвращаемое в запросе назавние по-английски"""
+        return self._CONDITION[name]
 
     def __init__(self):
-        self._request = None
-        self._condition = {
-            'clear': 'ясно',
-            'partly-cloudy': 'малооблачно',
-            'cloudy': 'облачно с прояснениями',
-            'overcast': 'пасмурно',
-            'partly-cloudy-and-light-rain': 'небольшой дождь',
-            'partly-cloudy-and-rain': "дождь",
-            'overcast-and-rain': 'сильный дождь',
-            'overcast-thunderstorms-with-rain': 'сильный дождь, гроза',
-            'cloudy-and-light-rain': 'небольшой дождь',
-            'overcast-and-lproight-rain': 'небольшой дождь',
-            'cloudy-and-rain': 'дождь',
-            'overcast-and-wet-snow': 'дождь со снегом',
-            'partly-cloudy-and-light-snow': 'небольшой снег',
-            'partly-cloudy-and-snow': 'снег',
-            'overcast-and-snow': 'снегопад',
-            'cloudy-and-light-snow': 'небольшой снег',
-            'overcast-and-light-snow': 'небольшой снег',
-            'cloudy-and-snow': 'снег'
-        }
         pass
 
     def get_forecast(self, lat, lon, API_key, lang='ru_RU'):
@@ -53,5 +51,4 @@ class WeatherToSite():
             ('lon', lon),
             ('lang', lang)
         ]
-        self._request = requests.get(url, params=params, headers=head)
-        return self._request.json()
+        return requests.get(url, params=params, headers=head).json()
