@@ -23,12 +23,25 @@ class WeatherToSite():
         'overcast-and-light-snow': 'небольшой снег',
         'cloudy-and-snow': 'снег'
     }
+    _WIND_DIR = ()
+    _SEASON = {
+        'summer': 'лето',
+        'autumn': 'осень',
+        'winter': 'зима',
+        'spring': 'весна'
+    }
 
     def get_condition(self, name: str) -> str:
         """Возвращает русское название погоды.
 
         name - возвращаемое в запросе назавние по-английски"""
         return self._CONDITION[name]
+
+    def get_season(self, name):
+        """Возвращает русское название времеми года
+
+        name - значение из результата запроса API"""
+        return self._SEASON[name]
 
     def __init__(self):
         pass
