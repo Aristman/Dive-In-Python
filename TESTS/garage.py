@@ -79,3 +79,9 @@ def get_car_list(file_name):
     except FileNotFoundError:
         print('File not found')
         return None
+
+with open('cars.csv', 'r') as f:
+    txt = csv.DictReader(f, delimiter=';')
+    for row in txt:
+        print(row)
+    print(txt)
